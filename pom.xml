@@ -65,7 +65,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.chiwanpark.example.PageRankExample</mainClass>
+              <mainClass>com.chiwanpark.example.ExampleMain</mainClass>
             </manifest>
           </archive>
         </configuration>
