@@ -25,8 +25,8 @@ public class PageRankExample {
     // create all edges
     DataSet<Tuple2<Long, Long>> edges = environment.readCsvFile(inputPath).fieldDelimiter(' ').lineDelimiter("\n").types(Long.class, Long.class);
 
-    // extract vertexes from edges
-    DataSet<Long> vertexes = edges.distinct(0).map(value -> value.f0);
+    // extract vertices from edges
+    DataSet<Long> vertices = edges.distinct(0).map(value -> value.f0);
 
     // create adjacency list from edges
     DataSet<Tuple2<Long, Long[]>> adjacencyList = edges.groupBy(0).reduceGroup((values, out) -> {
@@ -42,7 +42,7 @@ public class PageRankExample {
     });
 
     // initial link table
-    DataSet<Tuple2<Long, Double>> initialRanks = vertexes.map(value -> new Tuple2<>(value, 1.0d / countOfVertexes));
+    DataSet<Tuple2<Long, Double>> initialRanks = vertices.map(value -> new Tuple2<>(value, 1.0d / countOfVertexes));
 
     // iteration start
     IterativeDataSet<Tuple2<Long, Double>> iteration = initialRanks.iterate(MAX_ITERATION);
@@ -70,6 +70,6 @@ public class PageRankExample {
     // print output
     pageRanks.writeAsCsv(outputPath, "\n", " ");
 
-    environment.execute("Iterative PageRank with Twitter Network");
+    environment.execute("Pagerank Algotirhm");
   }
 }
